@@ -22,4 +22,18 @@ public class FacturaRestController {
         return clienteServices.findFacturaById(id);
     }
 
+    @DeleteMapping("/facturas/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id){
+        clienteServices.deleteFacturaById(id);
+    }
+
+    @PostMapping("/facturas")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Factura create(@RequestBody Factura factura){
+        return clienteServices.saveFactura(factura);
+    }
+
+
+
 }
