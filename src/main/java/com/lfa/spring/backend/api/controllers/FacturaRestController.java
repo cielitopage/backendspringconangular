@@ -2,12 +2,15 @@ package com.lfa.spring.backend.api.controllers;
 
 
 import com.lfa.spring.backend.api.models.entity.Factura;
+import com.lfa.spring.backend.api.models.entity.Producto;
 import com.lfa.spring.backend.api.models.services.IClienteServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+import java.util.List;
+
+@CrossOrigin(origins = {"http://localhost:4200","*"})
 @RequestMapping("/api")
 @RestController
 public class FacturaRestController {
@@ -34,6 +37,12 @@ public class FacturaRestController {
         return clienteServices.saveFactura(factura);
     }
 
+
+    @GetMapping("/facturas/filtrar-productos/{term}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Producto> filtrarProductos(@PathVariable String term){
+        return clienteServices.findByNombre(term);
+    }
 
 
 }

@@ -38,7 +38,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-@CrossOrigin(origins = {"http://localhost:4200"})   // Para que Angular pueda acceder a este controlador
+@CrossOrigin(origins = {"http://localhost:4200","*"})
 @RestController
 @RequestMapping("/api")
 @Controller

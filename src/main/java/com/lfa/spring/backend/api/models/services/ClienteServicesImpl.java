@@ -2,14 +2,15 @@ package com.lfa.spring.backend.api.models.services;
 
 import com.lfa.spring.backend.api.models.dao.IClienteDao;
 import com.lfa.spring.backend.api.models.dao.IFacturaDao;
+import com.lfa.spring.backend.api.models.dao.IProductosDao;
 import com.lfa.spring.backend.api.models.entity.Cliente;
 
 import com.lfa.spring.backend.api.models.entity.Factura;
+import com.lfa.spring.backend.api.models.entity.Producto;
 import com.lfa.spring.backend.api.models.entity.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,10 @@ public class ClienteServicesImpl  implements IClienteServices {
 
     @Autowired
     private IFacturaDao facturaDao;
+
+    @Autowired
+    private IProductosDao productosDao;
+
     @Override
     @Transactional(readOnly = true)
     public List<Cliente> findAll() {
@@ -86,6 +91,26 @@ public class ClienteServicesImpl  implements IClienteServices {
 
         facturaDao.deleteById(id);
 
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> findByNombre(String term) {
+
+        return  productosDao.findByNombre(term);
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> findByNombreContainingIgnoreCase(String term) {
+        return productosDao.findByNombreStartingWithIgnoreCase(term);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto>findByNombreStartingWithIgnoreCase(String term) {
+        return productosDao.findByNombreContainingIgnoreCaseOrderByNombreAsc(term);
     }
 
 }
